@@ -1,0 +1,33 @@
+
+body #main {
+    overflow: hidden;
+    background-image: url(../images/background.png);
+    height: 60rem;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 3%;
+    
+}
+
+body #main #container #head{
+    padding: 1%;
+    background-color: #FFF;
+    box-shadow: 1px 1px 5px  black;
+    opacity: 100%;
+    /* border-bottom: 1px solid #000; */
+    height: 100px;
+}
+
+body #main #container #cont{
+    overflow: hidden;
+    background-color: #FFF;
+    opacity: 80%;
+    padding: 1%;
+    
+}
+
+#search {
+    padding: 1%;
+}
+
