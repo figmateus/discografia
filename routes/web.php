@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\TrackController;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
