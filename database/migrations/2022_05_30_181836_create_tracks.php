@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('album', function (Blueprint $table) {
+        Schema::create('tracks', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('album_id');
             $table->string('name');
-            $table->date('release_date');
+            $table->string('duration');
+            $table->foreign('album_id')->references('id')->on('albums');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('album');
+        Schema::dropIfExists('track');
     }
 };

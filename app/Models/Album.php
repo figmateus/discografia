@@ -13,4 +13,8 @@ class Album extends Model
         'name',
         'release_date'
     ];
+
+    public function tracks(){
+        return $this->hasMany(Track::class);
+    }
 }

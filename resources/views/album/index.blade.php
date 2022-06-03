@@ -1,16 +1,18 @@
 @extends('default.layout')
 
 @section('content')
-<form id="search" class="row g-3">
-    <label for="inputPassword2" class="">Digite uma palavra chave</label>
+<form id="search" method="POST" class="row g-3">
+    @csrf
+    <label for="album" class="">Digite uma palavra chave</label>
     <div class="col-sm-9 col-md-9">
-      <input type="text" class="form-control" id="album" placeholder="">
+      <input type="text" name="album" class="form-control" id="album">
     </div>
     <div class="col-auto">
         <button type="submit" class="btn btn-primary mb-3">Procurar</button>
     </div>
 </form>
-<table id="tabela">
+
+{{-- <table id="tabela">
     <thead>
         <tr class="d-flex justify-content-between">
             <th>Album: </th>
@@ -33,8 +35,18 @@
             <td>1</td>
         </tr>
     </tbody>
-</table>
+</table> --}}
+
 <div class="row">
+    <div class="">
+        @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
+    </div>
     <div id="tabela" class="col-auto">
         <a href="/discografia/criar" class="btn btn-primary mb-3">Cadastrar Album</a>
     </div>
@@ -43,13 +55,3 @@
     </div>
 </div>
 @endsection
-{{-- <div  class="col form-group ">
-    <div  id="search" class="">
-        
-        <input class="form-control" type="text" name="album" id="">
-        <div class="">
-            <button id="" class="btn btn-primary" type="submit">Procurar</button>
-        </div>
-    </div>
-    
-</div> --}}
