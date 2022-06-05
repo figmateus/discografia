@@ -24,7 +24,14 @@ class FindAlbumRequest extends FormRequest
     public function rules()
     {
         return [
-            'album' => 'required'
+            'keyword' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'keyword.required' => 'Digite uma palavra chave',
         ];
     }
 }

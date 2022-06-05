@@ -6,12 +6,12 @@
     @csrf
     
     @if($errors->any())
-    <div class="alert alert-danger">
+    <div class="col col-sm-4 alert alert-danger">
     @foreach($errors->all() as $error)
         <p>{{ $error }}</p>
     @endforeach
     </div>
-@endif
+    @endif
     <label for="album" class="form-label">Nome do album</label>
     <div class="col-sm-4 col-md-4">
       <input type="text" class="form-control" name="name" id="album">

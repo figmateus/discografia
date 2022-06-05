@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('tracks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('album_id');
-            $table->string('name');
+            $table->string('position');
+            $table->string('track_name');
             $table->string('duration');
             $table->foreign('album_id')->references('id')->on('albums');
             $table->timestamps();

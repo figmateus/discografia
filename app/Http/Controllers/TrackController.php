@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateTrackRequest;
+use App\Models\Album;
 use App\Models\Track;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -11,27 +14,32 @@ class TrackController extends Controller
     
     public function Create():View
     {
-        return view('track/create');
+        $album = Album::all();
+        return view('track/create',[
+            'album' => $album
+        ]);
     }
 
-    public function Store(Request $request) {
-
+    public function Store(CreateTrackRequest $request):RedirectResponse 
+    {
         $data = $request->validated();
-        $album = Track::create($data);
+        $track = Track::create([
+            'track_name' => $data['track_name'],
+            'album_id' => $data['album'],
+            'position' => $data['position'],
+            'duration' => $data['duration']
+        ]);
+        if($track){
+
+        }
 
         return redirect('/discografia');
     }
 
-    public function Edit(int $id):View
+    public function Delete(int $id):RedirectResponse
     {
-        return view('track/edit');
-    }
-
-    public function Update(int $id, Request $request) {
-
-    }
-
-    public function Delete(int $id) {
-        
+        $track = Track::find($id);
+        $track->delete();
+        return redirect('/discografia')->with();
     }
 }

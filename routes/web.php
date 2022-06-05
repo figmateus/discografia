@@ -25,15 +25,11 @@ Route::controller(AlbumController::class)->group(function () {
     Route::post('/discografia', 'List');
     Route::get('/discografia/criar', 'Create');
     Route::post('/discografia/criar', 'Store');
-    Route::get('/discografia/editar/{id}', 'Edit');
-    Route::post('/discografia/editar/{id}', 'Update');
     Route::get('/discografia/apagar/{id}', 'Delete');
 });
 
 Route::controller(TrackController::class)->group(function () {
     Route::get('/faixa/criar', 'Create');
     Route::post('/faixa/criar', 'Store');
-    Route::get('/faixa/editar/{id}', 'Edit');
-    Route::post('/faixa/editar/{id}', 'Update');
     Route::get('/faixa/apagar/{id}', 'Delete');
 });

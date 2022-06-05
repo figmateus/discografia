@@ -1,27 +1,50 @@
 @extends('default.layout')
-
 @section('content')
 
-<form id="search" class="row g-3">
-    <label for="inputPassword2" class="">Nome da musica</label>
-    <div class="col-sm-4 col-md-4">
-      <input type="text" class="form-control" id="album" placeholder="">
+<form id="search" method="POST" class="row g-3">
+    @csrf
+    @if($errors->any())
+    <div class="col col-sm-4 alert alert-danger">
+    @foreach($errors->all() as $error)
+        <p>{{ $error }}</p>
+    @endforeach
     </div>
-    <div class="col-sm-4 col-md-4">
-        <select class="form-select" id="album" placeholder="">
-            <option selected>Selecione um album</option>
-            <option value="1">Album 1</option>
-            <option value="2">Album 2</option>
-            <option value="3">Album 3</option>
-        </select>
+    @endif
+    <label for="position">Posição da faixa</label>
+    <div class="col col-sm-2 col-md-2">
+      <input type="text" class="form-control" name="position" id="position">
+    </div>
+
+    <label for="track_name">Nome da musica</label>
+    <div class="col col-sm-3 col-md-3">
+      <input type="text" class="form-control" name="track_name" id="track">
+    </div>
+
+    <label for="duration">Duração</label>
+    <div class="col col-sm-3 col-md-3">
+      <input data-mask="00:00" type="text" class="form-control" name="duration" placeholder="00:00">
+    </div>
+    {{--  --}}
+    <div class="form-group">
+        <div class="col col-sm-4 col-md-4">
+            <select class="form-select" name="album" id="album" placeholder="">
+                <option selected value="">Escolha um album para adicionar a faixa</option>
+                @foreach($album as $a)
+				<option value="{{$a->id}}">{{$a->name.','.Carbon\Carbon::parse($a->release_date)->format('Y')}}</option>
+			    @endforeach
+            </select>
       </div>
-    <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3">Adicionar</button>
     </div>
+    <div class="d-flex p-2">
+        <div>
+            <button type="submit" class="btn btn-primary m-1">Adicionar</button>
+        </div>
+        <div>
+            <div id="tabela" class="col">
+                <a href="/discografia" class="btn btn-primary m-1">Voltar</a>
+            </div>
+        </div>
+    </div>   
 </form>
-<div class="row">
-    <div id="tabela" class="col-auto">
-        <a href="/discografia" class="btn btn-primary mb-3">Voltar</a>
-    </div>
-</div>
+
 @endsection

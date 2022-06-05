@@ -11,7 +11,13 @@ class Track extends Model
 
     protected $fillable = [
         'album_id',
-        'name',
+        'position',
+        'track_name',
         'duration'
     ];
+
+    public function album()
+    {
+        return $this->belongsTo(Album::class);
+    }
 }

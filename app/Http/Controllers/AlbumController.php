@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Album;
+use App\Models\Track;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CreateAlbumRequest;
 use App\Http\Requests\FindAlbumRequest;
@@ -19,11 +21,18 @@ class AlbumController extends Controller
 
     public function List(FindAlbumRequest $request):View
     {
-        $album = $request->safe()->only('album');
-        dd($album[0]);
-        $result = Album::where('name', 'LIKE', '%' . $album . '%');
-        dd($result);
-        return view('album/index');
+        $keyword = $request->safe()->keyword;
+        $data = Album::with('tracks')->whereHas('tracks', function($q) use ($keyword)
+        {
+            $q->where('name', 'like', '%'.$keyword.'%');
+            $q->orWhere('track_name', 'like', '%'.$keyword.'%');
+        })->get();
+        // dd($data);
+       
+        return view('album/index',[
+            'album' => $data,
+            
+        ]);
     }
 
     public function Create():View
@@ -38,15 +47,6 @@ class AlbumController extends Controller
         $album = Album::create($data);
 
         return redirect('/discografia');
-    }
-
-    public function Edit(int $id):View
-    {
-        return view('album/edit');
-    }
-
-    public function Update(int $id, Request $request) {
-
     }
 
     public function Delete(int $id) {

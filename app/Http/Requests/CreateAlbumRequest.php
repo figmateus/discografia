@@ -29,4 +29,15 @@ class CreateAlbumRequest extends FormRequest
             'release_date' => 'required|date'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Digite o nome do album',
+            'name.regex' => 'Digite um nome valido',
+            'name.unique' => 'Album já cadastrado',
+            'release_date.required' => 'Digite o ano de lançamento do album',
+            'release_date.date' => 'Data invalida'
+        ];
+    }
 }
