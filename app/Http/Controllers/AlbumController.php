@@ -14,42 +14,44 @@ use Illuminate\View\View;
 class AlbumController extends Controller
 {
     
-    public function Index():View
+    public function index():View
     {
         return view('album/index');
     }
 
-    public function List(FindAlbumRequest $request):View
+    public function list(FindAlbumRequest $request):View
     {
         $keyword = $request->safe()->keyword;
-        $data = Album::with('tracks')->whereHas('tracks', function($q) use ($keyword)
-        {
-            $q->where('name', 'like', '%'.$keyword.'%');
-            $q->orWhere('track_name', 'like', '%'.$keyword.'%');
-        })->get();
-        // dd($data);
-       
+        $data = Album::with('tracks')->where('name', 'like', '%'.$keyword.'%')->get();
+        
         return view('album/index',[
             'album' => $data,
             
         ]);
     }
 
-    public function Create():View
+    public function create():View
     {
         return view('album/create');
     }
 
-    public function Store(CreateAlbumRequest $request):RedirectResponse 
+    public function store(CreateAlbumRequest $request):RedirectResponse 
     {
 
         $data = $request->validated();
         $album = Album::create($data);
 
-        return redirect('/discografia');
+        return to_route('discografia');
     }
 
-    public function Delete(int $id) {
-        
+    public function delete(int $id):RedirectResponse  
+    {
+        $album = Album::find($id);
+        if(isset($album->tracks[0])){
+            $tracks = Track::where('album_id',$id)->delete();
+            $album->delete();    
+        }
+        $album->delete();
+        return to_route('discografia');
     }
 }

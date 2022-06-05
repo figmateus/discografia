@@ -18,13 +18,15 @@
         <tr class="">
             <th>Album: {{$item->name}},</th>
             <th>{{Carbon\Carbon::parse($item->release_date)->format('Y')}}</th>
+            <th>
+                <a class="btn btn-danger" href="/discografia/apagar/{{$item->id}}">Excluir Album</a>
+            </th>
         </tr>
         <tr>
             <th>Nº:</th>
             <th>Faixa:</th>
             <th id="duration">duração</th>
         </tr>
-        {{-- {{dd($item->tracks)}} --}}
         @if (isset($item->tracks))
             @foreach ($item->tracks as $track)
             <tr>
@@ -37,6 +39,18 @@
             </tr>        
             @endforeach
         @else
+        <tr class="">
+            <th>Album: {{$item->name}},</th>
+            <th>{{Carbon\Carbon::parse($item->release_date)->format('Y')}}</th>
+            <th>
+                <a class="btn btn-danger" href="/discografia/apagar/{{$item->id}}">Excluir Album</a>
+            </th>
+        </tr>
+        <tr>
+            <th>Nº:</th>
+            <th>Faixa:</th>
+            <th id="duration">duração</th>
+        </tr>
         <tr>
             <td></td>
             <td></td>

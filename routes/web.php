@@ -17,19 +17,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/discografia');
 });
 
 Route::controller(AlbumController::class)->group(function () {
-    Route::get('/discografia', 'Index');
-    Route::post('/discografia', 'List');
-    Route::get('/discografia/criar', 'Create');
-    Route::post('/discografia/criar', 'Store');
-    Route::get('/discografia/apagar/{id}', 'Delete');
+    Route::get('/discografia', 'index')->name('discografia');
+    Route::post('/discografia', 'list');
+    Route::get('/discografia/criar', 'create');
+    Route::post('/discografia/criar', 'store');
+    Route::get('/discografia/apagar/{id}', 'delete');
 });
 
 Route::controller(TrackController::class)->group(function () {
-    Route::get('/faixa/criar', 'Create');
-    Route::post('/faixa/criar', 'Store');
-    Route::get('/faixa/apagar/{id}', 'Delete');
+    Route::get('/faixa/criar', 'create');
+    Route::post('/faixa/criar', 'store');
+    Route::get('/faixa/apagar/{id}', 'delete');
 });

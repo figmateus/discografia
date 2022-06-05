@@ -12,7 +12,7 @@ use Illuminate\View\View;
 class TrackController extends Controller
 {
     
-    public function Create():View
+    public function create():View
     {
         $album = Album::all();
         return view('track/create',[
@@ -20,7 +20,7 @@ class TrackController extends Controller
         ]);
     }
 
-    public function Store(CreateTrackRequest $request):RedirectResponse 
+    public function store(CreateTrackRequest $request):RedirectResponse 
     {
         $data = $request->validated();
         $track = Track::create([
@@ -29,17 +29,13 @@ class TrackController extends Controller
             'position' => $data['position'],
             'duration' => $data['duration']
         ]);
-        if($track){
-
-        }
-
-        return redirect('/discografia');
+        return to_route('discografia');
     }
 
-    public function Delete(int $id):RedirectResponse
+    public function delete(int $id):RedirectResponse
     {
         $track = Track::find($id);
         $track->delete();
-        return redirect('/discografia')->with();
+        return to_route('discografia');
     }
 }
