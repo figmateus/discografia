@@ -1,5 +1,3 @@
-<p align="start"><img src="supliuLogo.png" width="200"></a></p>
-
 
 ## Desafio
 
