@@ -41,17 +41,14 @@ class AlbumController extends Controller
         $data = $request->validated();
         $album = Album::create($data);
 
-        return to_route('discografia');
+        return to_route('discografia')->with('message', 'album cadastrado com sucesso!');
     }
 
     public function delete(int $id):RedirectResponse  
     {
         $album = Album::find($id);
-        if(isset($album->tracks[0])){
-            $tracks = Track::where('album_id',$id)->delete();
-            $album->delete();    
-        }
-        $album->delete();
+        $album->delete();    
+        
         return to_route('discografia');
     }
 }

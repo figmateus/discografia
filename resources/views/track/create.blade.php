@@ -10,6 +10,11 @@
     @endforeach
     </div>
     @endif
+    @if(session('message'))
+    <div class="col col-sm-4 alert alert-success">
+        <p>{{session('message')}}</p>
+    </div>
+    @endif
     <label for="position">Posição da faixa</label>
     <div class="col col-sm-2 col-md-2">
       <input type="text" class="form-control" name="position" id="position">

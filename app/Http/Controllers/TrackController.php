@@ -29,7 +29,7 @@ class TrackController extends Controller
             'position' => $data['position'],
             'duration' => $data['duration']
         ]);
-        return to_route('discografia');
+        return to_route('discografia')->with('message', 'Faixa cadastrada com sucesso!');
     }
 
     public function delete(int $id):RedirectResponse

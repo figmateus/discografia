@@ -1,6 +1,11 @@
 @extends('default.layout')
 
 @section('content')
+@if(session('message'))
+<div class="col col-sm-4 alert alert-success">
+    <p>{{session('message')}}</p>
+</div>
+@endif
 <form id="search" method="POST" class="row g-3">
     @csrf
     <label for="album" class="">Digite uma palavra chave</label>
@@ -17,7 +22,7 @@
         @foreach ($album as $item)
         <tr class="">
             <th>Album: {{$item->name}},</th>
-            <th>{{Carbon\Carbon::parse($item->release_date)->format('Y')}}</th>
+            <th>{{$item->release_date->format('Y')}}</th>
             <th>
                 <a class="btn btn-danger" href="/discografia/apagar/{{$item->id}}">Excluir Album</a>
             </th>

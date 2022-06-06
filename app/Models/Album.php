@@ -17,4 +17,7 @@ class Album extends Model
     public function tracks(){
         return $this->hasMany(Track::class, 'album_id', 'id');
     }
+
+    protected $dates = ['release_date'];
+    
 }

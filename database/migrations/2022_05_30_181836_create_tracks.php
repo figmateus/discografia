@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('position');
             $table->string('track_name');
             $table->string('duration');
-            $table->foreign('album_id')->references('id')->on('albums');
+            $table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');
             $table->timestamps();
         });
     }
