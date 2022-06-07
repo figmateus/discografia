@@ -27,22 +27,26 @@ Bootstrap é um framework front-end que fornece estruturas de CSS para a criaç�
 ```
 git clone https://github.com/figmateus/supliu-vaga.git
 ```
+
 **Depois crie o .env**
 ```
  cp .env.example .env
  ```
+
  **Rode os comandos**
 ```
  composer update
  ./vendor/bin/sail build
+ php artisan sail:install
  npm install 
  npm run dev
  ./vendor/bin/sail artisan key:generate
  ```
+
  **Configure o arquivo .env**
     <p align="start"><img src="env.png" width="200"></a></p>
- **Rode as migrations**
 
+ **Rode as migrations**
  ```
  ./vendor/bin/sail artisan migrate
  ```
@@ -50,3 +54,5 @@ git clone https://github.com/figmateus/supliu-vaga.git
  ```
  ./vendor/bin/sail up
  ```
+
+
