@@ -40,7 +40,7 @@ git clone https://github.com/figmateus/supliu-vaga.git
  ./vendor/bin/sail artisan key:generate
  ```
  **Configure o arquivo .env**
-    <p align="start"><img src="env.png" width="500"></a></p>
+    <p align="start"><img src="env.png" width="200"></a></p>
  **Rode as migrations**
 
  ```
