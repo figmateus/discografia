@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\DB;
+use App\Services\AlbumService;
 use App\Models\Album;
-use App\Models\Track;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CreateAlbumRequest;
 use App\Http\Requests\FindAlbumRequest;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class AlbumController extends Controller
 {
-    
+    protected $service;
+    public function __construct(AlbumService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index():View
     {
         return view('album/index');
@@ -22,11 +25,10 @@ class AlbumController extends Controller
     public function list(FindAlbumRequest $request):View
     {
         $keyword = $request->safe()->keyword;
-        $data = Album::with('tracks')->where('name', 'like', '%'.$keyword.'%')->get();
-        
+        $album = Album::with('tracks')->where('name', 'like', '%'.$keyword.'%')->get();
+
         return view('album/index',[
-            'album' => $data,
-            
+            'album' => $album,
         ]);
     }
 
@@ -35,20 +37,16 @@ class AlbumController extends Controller
         return view('album/create');
     }
 
-    public function store(CreateAlbumRequest $request):RedirectResponse 
+    public function store(CreateAlbumRequest $request):RedirectResponse
     {
-
         $data = $request->validated();
-        $album = Album::create($data);
-
+        $this->service->store($data);
         return to_route('discografia')->with('message', 'album cadastrado com sucesso!');
     }
 
-    public function delete(int $id):RedirectResponse  
+    public function delete(int $id):RedirectResponse
     {
-        $album = Album::find($id);
-        $album->delete();    
-        
+        $this->service->destroy($id);
         return to_route('discografia');
     }
 }

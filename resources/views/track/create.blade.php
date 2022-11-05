@@ -34,7 +34,7 @@
         <div class="col col-sm-4 col-md-4">
             <select class="form-select" name="album" id="album" placeholder="">
                 <option selected value="">Escolha um album para adicionar a faixa</option>
-                @foreach($album as $a)
+                @foreach($albums as $a)
 				<option value="{{$a->id}}">{{$a->name.','.Carbon\Carbon::parse($a->release_date)->format('Y')}}</option>
 			    @endforeach
             </select>
@@ -49,7 +49,7 @@
                 <a href="/discografia" class="btn btn-primary m-1">Voltar</a>
             </div>
         </div>
-    </div>   
+    </div>
 </form>
 
 @endsection

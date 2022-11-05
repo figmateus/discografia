@@ -3,39 +3,40 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTrackRequest;
-use App\Models\Album;
-use App\Models\Track;
+use App\Services\AlbumService;
+use App\Services\TrackService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class TrackController extends Controller
 {
-    
+    protected $trackService;
+    protected $albumService;
+
+    public function __construct(TrackService $trackService, AlbumService $albumService)
+    {
+        $this->trackService = $trackService;
+        $this->albumService = $albumService;
+    }
+
     public function create():View
     {
-        $album = Album::all();
+        $albums = $this->albumService->getAlbums();
         return view('track/create',[
-            'album' => $album
+            'albums' => $albums
         ]);
     }
 
-    public function store(CreateTrackRequest $request):RedirectResponse 
+    public function store(CreateTrackRequest $request):RedirectResponse
     {
-        $data = $request->validated();
-        $track = Track::create([
-            'track_name' => $data['track_name'],
-            'album_id' => $data['album'],
-            'position' => $data['position'],
-            'duration' => $data['duration']
-        ]);
+        $payload = $request->validated();
+        $this->trackService->store($payload);
         return to_route('discografia')->with('message', 'Faixa cadastrada com sucesso!');
     }
 
     public function delete(int $id):RedirectResponse
     {
-        $track = Track::find($id);
-        $track->delete();
-        return to_route('discografia');
+        $this->trackService->destroy($id);
+        return to_route('discografia')->with('message', 'Faixa deletada com sucesso!');
     }
 }
