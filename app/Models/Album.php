@@ -19,5 +19,5 @@ class Album extends Model
     }
 
     protected $dates = ['release_date'];
-    
+
 }

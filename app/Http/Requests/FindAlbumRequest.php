@@ -24,7 +24,7 @@ class FindAlbumRequest extends FormRequest
     public function rules()
     {
         return [
-            'keyword' => 'required'
+            'search' => 'required'
         ];
     }
 

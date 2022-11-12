@@ -6,6 +6,7 @@ use App\Models\Album;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
+use App\Models\Track;
 
 class AlbumRepository implements AlbumRepositoryInterface
 {
@@ -22,14 +23,23 @@ class AlbumRepository implements AlbumRepositoryInterface
         return true;
     }
 
-    public function getAlbums():LengthAwarePaginator
+    public function getAlbums()
     {
-        return $this->model->paginate($album = 5);
+
+        return $this->model->paginate($albums = 5);
+        // return $this->model->select('*')
+        // ->join('tracks', 'tracks.album_id','albums.id')
+        // ->orderBy('position')->paginate($album = 5);
     }
 
     public function get(int $id):Album
     {
         return $this->model->find($id);
+    }
+
+    public function search(string $search):LengthAwarePaginator
+    {
+        return $this->model->with('tracks')->where('name', 'like', '%'.$search.'%')->paginate($albums = 2);
     }
 
     public function update(int $id, array $payload):Album

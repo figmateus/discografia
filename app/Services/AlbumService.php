@@ -19,12 +19,17 @@ class AlbumService
 
     public function getAlbums()
     {
-        return $this->repository->getAlbums(10);
+        return $this->repository->getAlbums();
     }
 
     public function get(int $id)
     {
         return $this->repository->get($id);
+    }
+
+    public function search(string $search)
+    {
+        return $this->repository->search($search);
     }
 
     public function update(int $id,array $payload)

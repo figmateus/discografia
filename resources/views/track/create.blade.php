@@ -22,7 +22,7 @@
 
     <label for="track_name">Nome da musica</label>
     <div class="col col-sm-3 col-md-3">
-      <input type="text" class="form-control" name="track_name" id="track">
+      <input type="text" class="form-control" name="name" id="track">
     </div>
 
     <label for="duration">Duração</label>
@@ -32,7 +32,7 @@
     {{--  --}}
     <div class="form-group">
         <div class="col col-sm-4 col-md-4">
-            <select class="form-select" name="album" id="album" placeholder="">
+            <select class="form-select" name="album_id" id="album" placeholder="">
                 <option selected value="">Escolha um album para adicionar a faixa</option>
                 @foreach($albums as $a)
 				<option value="{{$a->id}}">{{$a->name.','.Carbon\Carbon::parse($a->release_date)->format('Y')}}</option>

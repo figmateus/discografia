@@ -12,7 +12,7 @@ class Track extends Model
     protected $fillable = [
         'album_id',
         'position',
-        'track_name',
+        'name',
         'duration'
     ];
 

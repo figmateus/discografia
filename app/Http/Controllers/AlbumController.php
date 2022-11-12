@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Services\AlbumService;
-use App\Models\Album;
+use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CreateAlbumRequest;
-use App\Http\Requests\FindAlbumRequest;
 use Illuminate\View\View;
 
 class AlbumController extends Controller
@@ -19,34 +18,39 @@ class AlbumController extends Controller
 
     public function index():View
     {
-        return view('album/index');
+
+        $albums = $this->service->getAlbums();
+        return view('album.index', compact('albums'));
     }
 
-    public function list(FindAlbumRequest $request):View
+    public function search(Request $request):View
     {
-        $keyword = $request->safe()->keyword;
-        $album = Album::with('tracks')->where('name', 'like', '%'.$keyword.'%')->get();
-
-        return view('album/index',[
-            'album' => $album,
-        ]);
+        $search = $request->search;
+        $albums = $this->service->search($search);
+        return view('album.search',compact('albums'));
     }
 
     public function create():View
     {
-        return view('album/create');
+        return view('album.create');
     }
 
     public function store(CreateAlbumRequest $request):RedirectResponse
     {
-        $data = $request->validated();
-        $this->service->store($data);
-        return to_route('discografia')->with('message', 'album cadastrado com sucesso!');
+        $payload = $request->validated();
+        $this->service->store($payload);
+        return to_route('discografia')->with(['message' => 'album cadastrado com sucesso!', 'alert' => 'alert-success']);
+    }
+
+    public function show(int $id)
+    {
+        $album = $this->service->get($id);
+        return view('album.show', compact('album'));
     }
 
     public function delete(int $id):RedirectResponse
     {
         $this->service->destroy($id);
-        return to_route('discografia');
+        return to_route('discografia')->with(['message' => 'album deletado com sucesso!', 'alert' => 'alert-success']);
     }
 }

@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('tracks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('album_id');
-            $table->string('position');
-            $table->string('track_name');
+            $table->integer('position');
+            $table->string('name', 80);
             $table->string('duration');
             $table->foreign('album_id')->references('id')->on('albums')->onDelete('cascade');
             $table->timestamps();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('track');
+        Schema::dropIfExists('tracks');
     }
 };

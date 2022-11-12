@@ -22,9 +22,7 @@ class TrackController extends Controller
     public function create():View
     {
         $albums = $this->albumService->getAlbums();
-        return view('track/create',[
-            'albums' => $albums
-        ]);
+        return view('track.create',compact('albums'));
     }
 
     public function store(CreateTrackRequest $request):RedirectResponse

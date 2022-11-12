@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Track;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+         \App\Models\Album::factory(1)->has(Track::factory(5))->create();
+        //  \App\Models\Track::factory()->forAlbum()->create();
+//         \App\Models\Track::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

@@ -8,6 +8,7 @@ use App\Repositories\AlbumRepository;
 use App\Repositories\AlbumRepositoryInterface;
 use App\Repositories\TrackRepository;
 use App\Repositories\TrackRepositoryInterface;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,6 +38,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Paginator::useBootstrap();
     }
 }

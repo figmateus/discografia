@@ -25,7 +25,7 @@ class CreateAlbumRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:albums|regex:/(^[A-Za-z ]+$)+/',
+            'name' => 'required|unique:albums,name',
             'release_date' => 'required|date'
         ];
     }

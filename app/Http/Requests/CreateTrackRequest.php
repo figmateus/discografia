@@ -25,9 +25,9 @@ class CreateTrackRequest extends FormRequest
     {
         return [
             'position' => 'required|numeric',
-            'album' => 'required',
-            'track_name' => 'required|unique:tracks',
-            'duration' => 'required' 
+            'album_id' => 'required',
+            'name' => 'required|unique:tracks,name',
+            'duration' => 'required'
         ];
     }
 
@@ -36,9 +36,10 @@ class CreateTrackRequest extends FormRequest
         return [
             'position.required' => 'digite a posição da faixa',
             'position.numeric' => 'digite uma posição valido',
-            'album.required' => 'Escolha um album para adicionar sua faixa',
-            'track_name.required' => 'Digite o nome da faixa',
-            'track_name.unique' => 'Faixa já cadastrada',
+            'position.unique' => 'Posição já cadastrada!',
+            'album_id.required' => 'Escolha um album para adicionar sua faixa',
+            'name.required' => 'Digite o nome da faixa',
+            'name.unique' => 'Faixa já cadastrada',
             'duration.required' => 'Digite a duração da faixa',
         ];
     }

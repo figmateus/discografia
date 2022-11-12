@@ -16,12 +16,7 @@ class TrackRepository implements TrackRepositoryInterface
 
     public function store(array $payload):bool
     {
-        $track = $this->model->create([
-            'track_name' => $payload['track_name'],
-            'album_id' => $payload['album'],
-            'position' => $payload['position'],
-            'duration' => $payload['duration']
-        ]);
+        $track = $this->model->create($payload);
 
         if(!$track){
             throw new \Exception("Algo deu errado ao criar uma track");
