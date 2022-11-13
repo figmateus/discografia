@@ -37,7 +37,7 @@ Bootstrap é um framework front-end que fornece estruturas de CSS para a criaç�
 ## Como resolvi o teste
 <p>
     Refatorei o meu codigo que havia feito antes, implementei o 
-    Repository Pattern, onde ele é responsavel por se comunicar com o banco dados e as interfaces para garantir que a classe do repository está cumprindo o contrato da interface e implementando os metodos necessarios, implementei o Service Layer, fazendo com que o controller fique o mais limpo possivel, assim, garantindo um código limpo. Implementei também testes unitários para garantir uma melhor segurança do código e garantir que todas as funcionalidades funcionam corretamente. A baixo podemos ver uma porcentagem de cobertura do meu código atual.
+    Repository Pattern, onde ele é responsavel por se comunicar com o banco dados, criei interfaces para garantir que as classes do repository estão cumprindo o contrato da interface e implementando os metodos necessarios, implementei uma camada de Serviço, fazendo com que o controller fique o mais limpo possivel e cumpra sua função principal que é de apenas intermediar as requisições enviadas pelo View com as respostas. Implementei também testes unitários para garantir uma melhor segurança do código e que todas as funcionalidades estão funcionando corretamente. A baixo podemos ver uma porcentagem de cobertura do meu código atual.
 </p>
 <img src="testCoverage.jpg" width=500 height=200>
 
