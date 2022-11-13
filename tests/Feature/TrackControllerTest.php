@@ -4,17 +4,12 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\{Album,Track};
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class TrackControllerTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+    use RefreshDatabase;
+
     public function test_user_can_create_an_track()
     {
         $this->withoutExceptionHandling();
@@ -44,38 +39,73 @@ class TrackControllerTest extends TestCase
         $response->assertStatus(302);
     }
 
-    /**
-     * @dataProvider invalidTracks
-     */
-    public function test_user_cannot_store_an_invalid_track($invalidData, $invalidFields)
+    public function test_user_cannot_store_an_invalid_track_missing_position()
     {
-        $response = $this->post('/faixa/criar',$invalidData)
-        ->assertSessionHasErrors($invalidFields)
+        $album = Album::factory()->create();
+        $response = $this->post('/faixa/criar',[
+            'name' => 'test track',
+            'duration' => '05:00',
+            'album_id' => $album->id
+        ])
+        ->assertSessionHasErrors('position')
         ->assertStatus(302);
 
         $this->assertDatabaseCount(Track::class, 0);
     }
 
-    public function invalidTracks()
+    public function test_user_cannot_store_an_invalid_track_missing_name()
     {
-        $album = Album::factory()->createOne();
-        return [
-            [
-                ['name' => 'test track', 'duration' => '05:00','album_id' => $album->id],
-                ['position']
-            ],
-            [
-                ['position' => 1 , 'duration' => '05:00','album_id' => $album->id],
-                ['name']
-            ],
-            [
-                ['position' => 1, 'name' => 'test track', 'album_id' => $album->id],
-                ['duration']
-            ],
-            [
-                ['position' => 1, 'name' => 'test track', 'duration' => '05:00'],
-                ['album_id']
-            ],
-        ];
+        $album = Album::factory()->create();
+        $response = $this->post('/faixa/criar',[
+            'position' => 1,
+            'duration' => '05:00',
+            'album_id' => $album->id
+        ])
+        ->assertSessionHasErrors('name')
+        ->assertStatus(302);
+
+        $this->assertDatabaseCount(Track::class, 0);
+    }
+
+    public function test_user_cannot_store_an_invalid_track_missing_duration()
+    {
+        $album = Album::factory()->create();
+        $response = $this->post('/faixa/criar',[
+            'position' => 1,
+            'name' => 'track name',
+            'album_id' => $album->id
+        ])
+        ->assertSessionHasErrors('duration')
+        ->assertStatus(302);
+
+        $this->assertDatabaseCount(Track::class, 0);
+    }
+
+    public function test_user_cannot_store_an_invalid_track_missing_album()
+    {
+        $album = Album::factory()->create();
+        $response = $this->post('/faixa/criar',[
+            'position' => 1,
+            'name' => 'track name',
+            'duration' => '05:00',
+        ])
+        ->assertSessionHasErrors('album_id')
+        ->assertStatus(302);
+
+        $this->assertDatabaseCount(Track::class, 0);
+    }
+
+    public function test_user_can_delete_a_track()
+    {
+        $album = Album::factory()->has(Track::factory(5))->create();
+        $response = $this->get('/faixa/apagar/'.$album->tracks[0]->id);
+        $response->assertSessionDoesntHaveErrors();
+        $this->assertDatabaseMissing(Track::class,[
+            'position' => $album->tracks[0]->position,
+            'name' => $album->tracks[0]->name,
+            'duration' => $album->tracks[0]->duration,
+            'album_id' => $album->tracks[0]->album_id
+        ]);
+        $response->assertStatus(302);
     }
 }

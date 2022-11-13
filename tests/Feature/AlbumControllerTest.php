@@ -3,20 +3,13 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\{Album,Track};
 use Carbon\Carbon;
-use PHPUnit\Framework\SkippedTest;
 use Tests\TestCase;
 
 class AlbumControllerTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
 
      public function test_user_can_see_albums()
     {
@@ -25,6 +18,19 @@ class AlbumControllerTest extends TestCase
         $response->assertViewHas('albums');
         $response->assertSessionDoesntHaveErrors();
         $response->assertSee($album->name);
+        $response->assertStatus(200);
+    }
+
+    public function test_user_can_show_album()
+    {
+        $album = Album::factory()->has(Track::factory(5))->create();
+        $response = $this->get('/discografia/'.$album->id);
+        $response->assertViewHas('album');
+        $response->assertSessionDoesntHaveErrors();
+        $response->assertSee($album->name);
+        $response->assertSee($album->release_date->format('Y'));
+        $response->assertSee($album->tracks[0]->name);
+        $response->assertSee($album->tracks[0]->duration);
         $response->assertStatus(200);
     }
 
