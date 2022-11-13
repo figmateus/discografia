@@ -34,6 +34,14 @@ Bootstrap é um framework front-end que fornece estruturas de CSS para a criaç�
     <li>Excluir um álbum</li>
 </ul>
 
+**Para rodar os testes unitários**
+```
+php artisan test
+```
+Apos Rodar esse comando você vera algo como
+
+<img src="testsResults.jpg" width=400 height=300>
+
 ## Como resolvi o teste
 <p>
     Refatorei o meu codigo que havia feito antes, implementei o 
