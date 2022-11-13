@@ -1,7 +1,7 @@
 @extends('default.layout')
 
 @section('content')
-    <form id="search" method="POST" class="row g-3">
+    <form id="search" method="GET" class="row g-3">
         @csrf
         <label for="album" class="">Digite uma palavra chave</label>
         <div class="col-sm-9 col-md-9">
@@ -41,9 +41,6 @@
                                     <td>{{ $track->position }}</td>
                                     <td width=300>{{ $track->name }}</td>
                                     <td id="duration">{{ $track->duration }}</td>
-                                    {{-- <td>
-                                        <a class="btn btn-danger rounded-pill" href="/faixa/apagar/{{ $track->id }}">Excluir</a>
-                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>
@@ -72,7 +69,12 @@
             </div>
         </div>
     @else
-        <h1>Cadastre um Album</h1>
+        <h1>Album não encontrado</h1>
+        <div class="d-flex justify-content-center">
+            <div id="tabela" class="col-auto">
+                <a href="/discografia" class="btn btn-primary mb-3 rounded-pill">Voltar</a>
+            </div>
+        </div>
     @endif
     <div class="row">
         <div class="">

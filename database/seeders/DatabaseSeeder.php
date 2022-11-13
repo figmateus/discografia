@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         \App\Models\Album::factory(1)->has(Track::factory(5))->create();
+         \App\Models\Album::factory(10)->has(Track::factory(5))->create();
         //  \App\Models\Track::factory()->forAlbum()->create();
 //         \App\Models\Track::factory(10)->create();
 

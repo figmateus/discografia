@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\{Album,Track};
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class TrackControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
     /**
      * A basic feature test example.
      *
@@ -20,7 +20,6 @@ class TrackControllerTest extends TestCase
         $this->withoutExceptionHandling();
          //prepare
         $album = Album::factory()->create();
-        // dd($track->album);
         //act
         $response = $this->post('/faixa/criar', [
             'position' => 1,
@@ -30,7 +29,6 @@ class TrackControllerTest extends TestCase
         ]);
 
         $track = Track::first();
-        // dd($track);
         // assert
         $this->assertDatabaseHas(Track::class, [
             'position' => 1,
@@ -44,5 +42,40 @@ class TrackControllerTest extends TestCase
         $this->assertEquals($track->album_id, $album->id);
         $this->assertInstanceOf(Album::class, $track->album);
         $response->assertStatus(302);
+    }
+
+    /**
+     * @dataProvider invalidTracks
+     */
+    public function test_user_cannot_store_an_invalid_track($invalidData, $invalidFields)
+    {
+        $response = $this->post('/faixa/criar',$invalidData)
+        ->assertSessionHasErrors($invalidFields)
+        ->assertStatus(302);
+
+        $this->assertDatabaseCount(Track::class, 0);
+    }
+
+    public function invalidTracks()
+    {
+        $album = Album::factory()->createOne();
+        return [
+            [
+                ['name' => 'test track', 'duration' => '05:00','album_id' => $album->id],
+                ['position']
+            ],
+            [
+                ['position' => 1 , 'duration' => '05:00','album_id' => $album->id],
+                ['name']
+            ],
+            [
+                ['position' => 1, 'name' => 'test track', 'album_id' => $album->id],
+                ['duration']
+            ],
+            [
+                ['position' => 1, 'name' => 'test track', 'duration' => '05:00'],
+                ['album_id']
+            ],
+        ];
     }
 }

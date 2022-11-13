@@ -23,7 +23,7 @@ class AlbumRepository implements AlbumRepositoryInterface
         return true;
     }
 
-    public function getAlbums()
+    public function getAlbums():LengthAwarePaginator
     {
 
         return $this->model->paginate($albums = 5);
@@ -37,9 +37,9 @@ class AlbumRepository implements AlbumRepositoryInterface
         return $this->model->find($id);
     }
 
-    public function search(string $search):LengthAwarePaginator
+    public function search($search):LengthAwarePaginator
     {
-        return $this->model->with('tracks')->where('name', 'like', '%'.$search.'%')->paginate($albums = 2);
+        return $this->model->with('tracks')->where('name', 'like', '%'.$search.'%')->paginate($albums = 5);
     }
 
     public function update(int $id, array $payload):Album

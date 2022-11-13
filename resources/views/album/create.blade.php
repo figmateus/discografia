@@ -4,7 +4,7 @@
 
 <form id="search" method="POST" class="row g-3">
     @csrf
-    
+
     @if($errors->any())
     <div class="col col-sm-4 alert alert-danger">
     @foreach($errors->all() as $error)
@@ -21,12 +21,12 @@
       <input type="date" class="form-control" name="release_date" id="release_date">
     </div>
     <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3">Adicionar</button>
+        <button type="submit" class="btn btn-primary mb-3 rounded-pill">Adicionar</button>
     </div>
 </form>
 <div class="row">
     <div id="tabela" class="col-auto">
-        <a href="/discografia" class="btn btn-primary mb-3">Voltar</a>
+        <a href="/discografia" class="btn btn-primary mb-3 rounded-pill">Voltar</a>
     </div>
 </div>
 @endsection

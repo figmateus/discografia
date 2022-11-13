@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::controller(AlbumController::class)->group(function () {
     Route::get('/discografia', 'index')->name('discografia');
-    Route::post('/discografia', 'search');
+    Route::get('/discografia/search', 'search')->name('search');
     Route::get('/discografia/criar', 'create');
     Route::post('/discografia/criar', 'store');
     Route::get('/discografia/{id}', 'show')->name('album.show');

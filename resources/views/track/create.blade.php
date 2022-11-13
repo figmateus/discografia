@@ -42,11 +42,11 @@
     </div>
     <div class="d-flex p-2">
         <div>
-            <button type="submit" class="btn btn-primary m-1">Adicionar</button>
+            <button type="submit" class="btn btn-primary m-1 rounded-pill">Adicionar</button>
         </div>
         <div>
             <div id="tabela" class="col">
-                <a href="/discografia" class="btn btn-primary m-1">Voltar</a>
+                <a href="/discografia" class="btn btn-primary m-1 rounded-pill">Voltar</a>
             </div>
         </div>
     </div>

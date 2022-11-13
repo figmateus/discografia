@@ -18,15 +18,13 @@ class AlbumController extends Controller
 
     public function index():View
     {
-
         $albums = $this->service->getAlbums();
         return view('album.index', compact('albums'));
     }
 
     public function search(Request $request):View
     {
-        $search = $request->search;
-        $albums = $this->service->search($search);
+        $albums = $this->service->search($request->search);
         return view('album.search',compact('albums'));
     }
 

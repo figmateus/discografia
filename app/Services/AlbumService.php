@@ -27,7 +27,7 @@ class AlbumService
         return $this->repository->get($id);
     }
 
-    public function search(string $search)
+    public function search($search)
     {
         return $this->repository->search($search);
     }
