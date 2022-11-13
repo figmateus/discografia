@@ -34,14 +34,6 @@ class TrackRepository implements TrackRepositoryInterface
         return $this->model->find($id);
     }
 
-    public function update(int $id, array $payload):Track
-    {
-        $track = $this->model->find($id);
-        $track->update($payload);
-        $track->save();
-        return $track;
-    }
-
     public function destroy(int $id):bool
     {
         $track = $this->model->find($id);

@@ -20,6 +20,27 @@ durante o dia a dia.</p>
 Bootstrap é um framework front-end que fornece estruturas de CSS para a criação de sites e aplicações responsivas de forma rápida e simples. Além disso, pode lidar com sites de desktop e páginas de dispositivos móveis da mesma forma.
 </p>
 
+## Testes unitários 
+<p>
+    Consegui atingir um total de 77.78% de cobertura de testes na minha aplicação, onde as funcionalidades principais ficaram com uma porcentagem maior de testes.
+</p>
+    Funcionalidades Testadas
+<ul>
+    <li>Ver lista de álbuns e faixas</li>
+    <li>Pesquisar álbuns por nome</li>
+    <li>Adicionar um novo álbum</li>
+    <li>Adicionar uma nova faixa em um álbum</li>
+    <li>Excluir uma faixa</li>
+    <li>Excluir um álbum</li>
+</ul>
+
+## Como resolvi o teste
+<p>
+    Refatorei o meu codigo que havia feito antes, implementei o 
+    Repository Pattern, onde ele é responsavel por se comunicar com o banco dados e as interfaces para garantir que a classe do repository está cumprindo o contrato da interface e implementando os metodos necessarios, implementei o Service Layer, fazendo com que o controller fique o mais limpo possivel, assim, garantindo um código limpo. Implementei também testes unitários para garantir uma melhor segurança do código e garantir que todas as funcionalidades funcionam corretamente. A baixo podemos ver uma porcentagem de cobertura do meu código atual.
+</p>
+<img src="testCoverage.jpg" width=500 height=200>
+
 ## como instalar o projeto
 
 **Primeiro Clone o projeto**

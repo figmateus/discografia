@@ -11,6 +11,5 @@ interface AlbumRepositoryInterface
     public function getAlbums();
     public function get(int $id);
     public function search(string $search);
-    public function update(int $id, array $payload);
     public function destroy(int $id);
 }
