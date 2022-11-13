@@ -22,7 +22,7 @@ Bootstrap é um framework front-end que fornece estruturas de CSS para a criaç�
 
 ## Testes unitários 
 <p>
-    Consegui atingir um total de 77.78% de cobertura de testes na minha aplicação, onde as funcionalidades principais ficaram com uma porcentagem maior de testes.
+    Consegui atingir um total de 71.28% de cobertura de testes na minha aplicação, onde as funcionalidades principais ficaram com uma porcentagem maior de testes.
 </p>
     Funcionalidades Testadas
 <ul>
